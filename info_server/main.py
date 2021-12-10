@@ -1,8 +1,8 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
+application = Flask(__name__)
+CORS(application)
 hits = [0]
 
 
@@ -11,17 +11,17 @@ NOTIFICATIONS = [
 ]
 
 
-@app.route("/")
+@application.route("/")
 def index():
     return "Hi!"
 
 
-@app.route("/api/hits")
+@application.route("/api/hits")
 def cnt_hits():
     return jsonify({'hits': hits[0]})
 
 
-@app.route("/api/notifications", methods=["GET"])
+@application.route("/api/notifications", methods=["GET"])
 def notifications():
     hits[0] += 1
     notifs = [{'hash': hash(d['title'] + str(d['time'])), **d} 
@@ -30,4 +30,4 @@ def notifications():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    application.run(host='0.0.0.0', port=5000)
